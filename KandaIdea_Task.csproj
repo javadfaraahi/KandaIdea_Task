@@ -21,7 +21,6 @@
     <Folder Include="Application\Mappings\" />
     <Folder Include="Application\Services\" />
     <Folder Include="Domain\Interfaces\" />
-    <Folder Include="Domain\Entities\" />
     <Folder Include="Infrastructure\Data\" />
     <Folder Include="Infrastructure\Services\" />
     <Folder Include="Infrastructure\Repositories\" />
