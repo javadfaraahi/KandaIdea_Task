@@ -1,5 +1,6 @@
 ﻿using KandaIdea_Task.Domain.Entities;
 using KandaIdea_Task.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace KandaIdea_Task.Infrastructure.Repositories;
@@ -16,33 +17,40 @@ public class UserRepository : IUserRepository
         _context = context; 
     }
     #endregion
-    public Task AddAsync(User user)
+    public async Task AddAsync(User user)
     {
-        throw new NotImplementedException();
+        await _context.Users.AddAsync(user);
+        await _context.SaveChangesAsync();
     }
 
-    public Task DeleteAsync(int id)
+    public async Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var userToDelete = await GetAsync(id);
+        if (userToDelete is not null) 
+        {
+            userToDelete.isDeleted = true;
+            await _context.SaveChangesAsync();
+        }
     }
 
-    public Task<List<User>> GetAllAsync()
+    public async Task<List<User>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Users.ToListAsync();
     }
 
-    public Task<User> GetAsync(int id)
+    public async Task<User> GetAsync(int id)
     {
-        throw new NotImplementedException();
+       return await _context.Users.FindAsync(id);
     }
 
-    public Task<List<User>> GetPatientsByConditionAsync(Expression<Func<User, bool>> predicate)
+    public async Task<List<User>> GetUsersByConditionAsync(Expression<Func<User, bool>> predicate)
     {
-        throw new NotImplementedException();
+        return await _context.Users.Where(predicate).ToListAsync();
     }
 
-    public Task UpdateAsync(User user)
+    public async Task UpdateAsync(User user)
     {
-        throw new NotImplementedException();
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
     }
 }
