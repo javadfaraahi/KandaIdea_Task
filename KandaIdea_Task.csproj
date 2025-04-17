@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\**" />
     <Compile Remove="Infrastructure\Services\**" />
+    <Content Remove="Helpers\**" />
     <Content Remove="Infrastructure\Services\**" />
+    <EmbeddedResource Remove="Helpers\**" />
     <EmbeddedResource Remove="Infrastructure\Services\**" />
+    <None Remove="Helpers\**" />
     <None Remove="Infrastructure\Services\**" />
   </ItemGroup>
 
@@ -25,11 +29,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Infrastructure\Services\" />
-    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>
