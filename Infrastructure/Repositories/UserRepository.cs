@@ -33,14 +33,4 @@ public class UserRepository : Repository<User> , IUserRepository
         }
         await SaveChangesAsync();
     }
-
-    
-    public async Task<User> GetUserWithCity(int id)
-    {
-        return await _context.Users.Include(x => x.City).FirstOrDefaultAsync(x => x.Id == id);
-    }
-    public async Task<List<User>> GetUsersWithCity()
-    {
-        return await _context.Users.Include(x => x.City).ToListAsync();
-    }
 }
