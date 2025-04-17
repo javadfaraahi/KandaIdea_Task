@@ -7,7 +7,8 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<User, UserDto>();
+        CreateMap<User, UserDto>()
+            .ForMember(dest => dest.CityName , opt => opt.MapFrom(src=> src.City.Name));
         CreateMap<UserCreateDto, User>();
     }
 }
