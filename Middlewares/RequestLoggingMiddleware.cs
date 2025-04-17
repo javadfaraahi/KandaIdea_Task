@@ -1,4 +1,5 @@
-﻿namespace KandaIdea_Task.Middlewares
+﻿
+namespace KandaIdea_Task.Middlewares
 {
     public class RequestLoggingMiddleware
     {
