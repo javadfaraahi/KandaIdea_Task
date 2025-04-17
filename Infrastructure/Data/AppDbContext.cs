@@ -12,5 +12,11 @@ namespace KandaIdea_Task.Infrastructure.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<City> Cities { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>()
+                .HasQueryFilter(u => !u.isDeleted);
+        }
     }
 }
