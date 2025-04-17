@@ -1,4 +1,5 @@
 ﻿using KandaIdea_Task.Application.DTOs;
+using KandaIdea_Task.Application.Services;
 using KandaIdea_Task.Application.Shared;
 using KandaIdea_Task.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ namespace KandaIdea_Task.Controllers
     {
         #region Fields
         private readonly IUserService _userService;
+        private readonly IExcelExportService _excelExportService;
         #endregion
         #region Ctor
-        public UserController(IUserService userService)
+        public UserController(IUserService userService , IExcelExportService excelExportService)
         {
             _userService = userService;
+            _excelExportService = excelExportService;
         }
         #endregion
         #region Methods
@@ -111,6 +114,16 @@ namespace KandaIdea_Task.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        [HttpPost("export-excel")]
+        public async Task<IActionResult> ExportExcel([FromBody] ExcelExportOptions options)
+        {
+            var users = await _userService.GetAllAsync(new PaginationParams() { PageNumber = 1 , PageSize = int.MaxValue}); 
+            var fileContent = _excelExportService.ExportUsersToExcel(users.Items, options);
+
+            return File(fileContent,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "Users.xlsx");
         }
         #endregion
 
