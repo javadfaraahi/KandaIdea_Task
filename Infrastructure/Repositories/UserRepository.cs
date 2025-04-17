@@ -23,5 +23,13 @@ public class UserRepository : Repository<User> , IUserRepository
             await SaveChangesAsync();
         }
     }
-   
+    public override async Task DeleteRangeAsync(List<int> Ids)
+    {
+        var usersToDelete = await GetByConditionAsync(x => Ids.Contains(x.Id));
+        foreach (var user in usersToDelete)
+        {
+            user.isDeleted = true;
+        }
+        await SaveChangesAsync();
+    }
 }

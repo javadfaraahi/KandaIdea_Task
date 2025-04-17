@@ -20,6 +20,7 @@ namespace KandaIdea_Task.Infrastructure.Repositories
         public virtual async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public virtual IQueryable<T> AsQueryable()
@@ -34,6 +35,21 @@ namespace KandaIdea_Task.Infrastructure.Repositories
             {
                 _dbSet.Remove(entity);
             }
+            await _context.SaveChangesAsync();
+        }
+        public virtual async Task DeleteRangeAsync(List<int> Ids)
+        {
+            var entities = new List<T>();
+            foreach (int id in Ids)
+            {
+                var entity = await GetAsync(id);
+                if (entity != null)
+                {
+                    entities.Add(entity);
+                }
+            }
+             _dbSet.RemoveRange(entities);
+            await _context.SaveChangesAsync();
         }
 
         public virtual async Task<List<T>> GetAllAsync()
@@ -54,6 +70,7 @@ namespace KandaIdea_Task.Infrastructure.Repositories
         public virtual async Task UpdateAsync(T entity)
         {
              _dbSet.Update(entity);
+            await _context.SaveChangesAsync();
         }
         public virtual async Task SaveChangesAsync()
         {

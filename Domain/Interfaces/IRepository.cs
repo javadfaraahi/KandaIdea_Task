@@ -11,6 +11,7 @@ namespace KandaIdea_Task.Domain.Interfaces
         Task<List<T>> GetByConditionAsync(Expression<Func<T, bool>> predicate);
         Task AddAsync(T entity);
         Task DeleteAsync(int id);
+        Task DeleteRangeAsync(List<int> Ids);
         Task UpdateAsync(T entity);
         Task SaveChangesAsync();
 
