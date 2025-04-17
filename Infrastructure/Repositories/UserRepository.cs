@@ -13,7 +13,8 @@ public class UserRepository : Repository<User> , IUserRepository
     public UserRepository(AppDbContext context) : base(context)
     {
     }
-
+    
+   
     public override async Task DeleteAsync(int id)
     {
         var userToDelete = await GetAsync(id);
@@ -31,5 +32,15 @@ public class UserRepository : Repository<User> , IUserRepository
             user.isDeleted = true;
         }
         await SaveChangesAsync();
+    }
+
+    
+    public async Task<User> GetUserWithCity(int id)
+    {
+        return await _context.Users.Include(x => x.City).FirstOrDefaultAsync(x => x.Id == id);
+    }
+    public async Task<List<User>> GetUsersWithCity()
+    {
+        return await _context.Users.Include(x => x.City).ToListAsync();
     }
 }
