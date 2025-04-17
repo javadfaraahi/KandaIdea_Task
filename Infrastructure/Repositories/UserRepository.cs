@@ -1,4 +1,5 @@
 ﻿using KandaIdea_Task.Domain.Entities;
+using KandaIdea_Task.Domain.Interfaces;
 using KandaIdea_Task.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
