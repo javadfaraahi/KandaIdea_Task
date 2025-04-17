@@ -4,5 +4,6 @@ namespace KandaIdea_Task.Domain.Interfaces
 {
     public interface ICityRepository : IRepository<City>
     {
+        Task<City> GetCityByName(string cityName);
     }
 }

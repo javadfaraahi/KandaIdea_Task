@@ -5,11 +5,13 @@ namespace KandaIdea_Task.Domain.Interfaces
 {
     public interface IRepository<T> where T : class
     {
+        IQueryable<T> QueryWithIncludes(Expression<Func<T, bool>> predicate = null ,
+            params Expression<Func<T, object>>[] includes);
         IQueryable<T> AsQueryable();
         Task<List<T>> GetAllAsync();
         Task<T> GetAsync(int id);
         Task<List<T>> GetByConditionAsync(Expression<Func<T, bool>> predicate);
-        Task AddAsync(T entity);
+        Task<T> AddAsync(T entity);
         Task DeleteAsync(int id);
         Task DeleteRangeAsync(List<int> Ids);
         Task UpdateAsync(T entity);
